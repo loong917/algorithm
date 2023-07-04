@@ -9,8 +9,8 @@ func TestReverse(t *testing.T) {
 	)
 	actual := Reverse(in)
 	if actual == expected {
-		t.Logf("Passed：Reverse('%s') = '%s'", in, expected)
+		t.Logf("reverse '%s' is '%s'", in, expected)
 	} else {
-		t.Errorf("Reverse('%s') = '%s'; expected = '%s'", in, actual, expected)
+		t.Errorf("reverse '%s' is '%s'; expected '%s'", in, actual, expected)
 	}
 }
