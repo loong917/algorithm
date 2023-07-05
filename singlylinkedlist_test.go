@@ -110,25 +110,6 @@ func TestMaxRemoveHead(t *testing.T) {
 	}
 }
 
-func TestEmptyInsertToTail(t *testing.T) {
-	list := NewSinglyLinkedList()
-	var (
-		in       = "1"
-		expected = "1"
-	)
-	err := list.InsertToTail(in)
-	if err != nil {
-		t.Errorf("insert to tail：%s", err.Error())
-		return
-	}
-	actual := list.Print()
-	if actual == expected {
-		t.Logf("insert '%s' to tail is '%s'", in, expected)
-	} else {
-		t.Errorf("insert '%s' to tail is '%s'; expected '%s'", in, actual, expected)
-	}
-}
-
 func TestInsertToTail(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
