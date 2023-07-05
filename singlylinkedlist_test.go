@@ -301,3 +301,32 @@ func TestPreInsert(t *testing.T) {
 		t.Errorf("preinsert node is '%s'; expected '%s'", actual, expected)
 	}
 }
+
+func TestReverse(t *testing.T) {
+	list := NewSinglyLinkedList()
+	var err error
+	err = list.InsertToTail("1")
+	if err != nil {
+		t.Errorf("reverse：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("2")
+	if err != nil {
+		t.Errorf("reverse：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("3")
+	if err != nil {
+		t.Errorf("reverse：%s", err.Error())
+		return
+	}
+	t.Logf("before reverse is '%s'", list.Print())
+	var expected string = "3->2->1"
+	list.Reverse()
+	actual := list.Print()
+	if actual == expected {
+		t.Logf("after reverse is '%s'", expected)
+	} else {
+		t.Errorf("reverse is '%s'; expected '%s'", actual, expected)
+	}
+}

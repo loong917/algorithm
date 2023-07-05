@@ -158,6 +158,28 @@ func (list *SinglyLinkedList) RemoveNode(node *ListNode) error {
 	return nil
 }
 
+// 反转链表
+func (list *SinglyLinkedList) Reverse() {
+	if list.head == nil {
+		return
+	}
+	if list.head.next == nil {
+		return
+	}
+	var previous *ListNode
+	var current *ListNode = list.head
+	for current != nil {
+		// 当前节点下一个节点
+		temp := current.next
+		current.next = previous
+		// 更新上一个节点
+		previous = current
+		// 更新当前节点
+		current = temp
+	}
+	list.head = previous
+}
+
 // 打印链表
 func (list *SinglyLinkedList) Print() string {
 	if list.head == nil {
