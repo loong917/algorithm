@@ -1,6 +1,9 @@
 package algorithm
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 // 双向链表
 type DoublyLinkedList struct {
@@ -164,12 +167,16 @@ func (list *DoublyLinkedList) Print() string {
 	}
 	current := list.head
 	var message string
+	var address string
 	for current != nil {
 		message += fmt.Sprintf("%+v", current.data)
+		address += fmt.Sprintf("%+v", current)
 		current = current.next
 		if current != nil {
 			message += "->"
+			address += "->"
 		}
 	}
+	log.Println(address)
 	return message
 }
