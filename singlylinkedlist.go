@@ -11,6 +11,7 @@ var ErrNodeNotExist = errors.New(" The given node does not exist in list ")
 
 var ErrRemoveFromEmptyList = errors.New(" It is not allowed to remove element from a empty list ")
 
+// 单链表
 type SinglyLinkedList struct {
 	head   *ListNode
 	length uint
@@ -49,45 +50,6 @@ func (list *SinglyLinkedList) RemoveHead() error {
 	next := list.head.next
 	list.head = next
 	list.length--
-	return nil
-}
-
-// 在某个节点后面插入节点
-func (list *SinglyLinkedList) Insert(node *ListNode, v interface{}) error {
-	if node == nil {
-		return ErrEmptyNode
-	}
-	newNode := &ListNode{
-		data: v,
-		next: node.next,
-	}
-	node.next = newNode
-	list.length++
-	return nil
-}
-
-// 在某个节点前面插入节点
-func (list *SinglyLinkedList) PreInsert(node *ListNode, v interface{}) error {
-	// 空链表或者在头节点前插入
-	if list.head == nil || node == list.head {
-		return list.InsertToHead(v)
-	}
-	// 查找“前”节点
-	var previous *ListNode
-	current := list.head
-	for current != node {
-		previous = current
-		current = current.next
-	}
-	if current == nil {
-		return ErrNodeNotExist
-	}
-	newNode := &ListNode{
-		data: v,
-		next: current,
-	}
-	previous.next = newNode
-	list.length++
 	return nil
 }
 
@@ -130,6 +92,45 @@ func (list *SinglyLinkedList) RemoveTail() error {
 		previous.next = nil
 	}
 	list.length--
+	return nil
+}
+
+// 在某个节点后面插入节点
+func (list *SinglyLinkedList) InsertAfter(node *ListNode, v interface{}) error {
+	if node == nil {
+		return ErrEmptyNode
+	}
+	newNode := &ListNode{
+		data: v,
+		next: node.next,
+	}
+	node.next = newNode
+	list.length++
+	return nil
+}
+
+// 在某个节点前面插入节点
+func (list *SinglyLinkedList) InsertBefore(node *ListNode, v interface{}) error {
+	// 空链表或者在头节点前插入
+	if list.head == nil || node == list.head {
+		return list.InsertToHead(v)
+	}
+	// 查找“前”节点
+	var previous *ListNode
+	current := list.head
+	for current != node {
+		previous = current
+		current = current.next
+	}
+	if current == nil {
+		return ErrNodeNotExist
+	}
+	newNode := &ListNode{
+		data: v,
+		next: current,
+	}
+	previous.next = newNode
+	list.length++
 	return nil
 }
 

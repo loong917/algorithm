@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestEmptyInsertToHead(t *testing.T) {
+func TestEmptySinglyInsertToHead(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var (
 		in       = "1"
@@ -24,7 +24,7 @@ func TestEmptyInsertToHead(t *testing.T) {
 	}
 }
 
-func TestInsertToHead(t *testing.T) {
+func TestSinglyInsertToHead(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToHead("1")
@@ -47,7 +47,7 @@ func TestInsertToHead(t *testing.T) {
 	}
 }
 
-func TestEmptyRemoveHead(t *testing.T) {
+func TestEmptySinglyRemoveHead(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var expected error = ErrRemoveFromEmptyList
 	err := list.RemoveHead()
@@ -62,27 +62,7 @@ func TestEmptyRemoveHead(t *testing.T) {
 	}
 }
 
-func TestMinRemoveHead(t *testing.T) {
-	list := NewSinglyLinkedList()
-	var err error
-	err = list.InsertToHead("1")
-	if err != nil {
-		t.Errorf("remove head：%s", err.Error())
-		return
-	}
-	err = list.RemoveHead()
-	if err != nil {
-		t.Errorf("remove head：%s", err.Error())
-		return
-	}
-	if list.head == nil {
-		t.Logf("remove head：%s", "passed")
-	} else {
-		t.Errorf("remove head：%s", "failed")
-	}
-}
-
-func TestMaxRemoveHead(t *testing.T) {
+func TestSinglyRemoveHead(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToHead("1")
@@ -110,7 +90,7 @@ func TestMaxRemoveHead(t *testing.T) {
 	}
 }
 
-func TestInsertToTail(t *testing.T) {
+func TestSinglyInsertToTail(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToTail("1")
@@ -133,7 +113,7 @@ func TestInsertToTail(t *testing.T) {
 	}
 }
 
-func TestRemoveTail(t *testing.T) {
+func TestSinglyRemoveTail(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToTail("1")
@@ -161,7 +141,7 @@ func TestRemoveTail(t *testing.T) {
 	}
 }
 
-func TestRemoveNode(t *testing.T) {
+func TestSinglyRemoveNode(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToTail("1")
@@ -208,7 +188,7 @@ func TestRemoveNode(t *testing.T) {
 	}
 }
 
-func TestInsert(t *testing.T) {
+func TestSinglyInsertAfter(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToTail("1")
@@ -242,7 +222,7 @@ func TestInsert(t *testing.T) {
 		}
 		current = current.next
 	}
-	err = list.Insert(node, "4")
+	err = list.InsertAfter(node, "4")
 	if err != nil {
 		t.Errorf("insert node：%s", err.Error())
 		return
@@ -255,25 +235,25 @@ func TestInsert(t *testing.T) {
 	}
 }
 
-func TestPreInsert(t *testing.T) {
+func TestSinglyInsertBefore(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToTail("1")
 	if err != nil {
-		t.Errorf("preinsert node：%s", err.Error())
+		t.Errorf("insert node：%s", err.Error())
 		return
 	}
 	err = list.InsertToTail("2")
 	if err != nil {
-		t.Errorf("preinsert node：%s", err.Error())
+		t.Errorf("insert node：%s", err.Error())
 		return
 	}
 	err = list.InsertToTail("3")
 	if err != nil {
-		t.Errorf("preinsert node：%s", err.Error())
+		t.Errorf("insert node：%s", err.Error())
 		return
 	}
-	t.Logf("before preinsert node is '%s'", list.Print())
+	t.Logf("before insert node is '%s'", list.Print())
 	var (
 		in       = "3"
 		expected = "1->2->4->3"
@@ -289,20 +269,20 @@ func TestPreInsert(t *testing.T) {
 		}
 		current = current.next
 	}
-	err = list.PreInsert(node, "4")
+	err = list.InsertBefore(node, "4")
 	if err != nil {
-		t.Errorf("preinsert node：%s", err.Error())
+		t.Errorf("insert node：%s", err.Error())
 		return
 	}
 	actual := list.Print()
 	if actual == expected {
-		t.Logf("after preinsert node is '%s'", expected)
+		t.Logf("after insert node is '%s'", expected)
 	} else {
-		t.Errorf("preinsert node is '%s'; expected '%s'", actual, expected)
+		t.Errorf("insert node is '%s'; expected '%s'", actual, expected)
 	}
 }
 
-func TestReverse(t *testing.T) {
+func TestSinglyReverse(t *testing.T) {
 	list := NewSinglyLinkedList()
 	var err error
 	err = list.InsertToTail("1")
