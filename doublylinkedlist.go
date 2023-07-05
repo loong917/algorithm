@@ -177,6 +177,8 @@ func (list *DoublyLinkedList) Print() string {
 			address += "->"
 		}
 	}
+	log.Println("--- begin ---")
 	log.Println(address)
+	log.Println("--- end ---")
 	return message
 }
