@@ -310,3 +310,90 @@ func TestSinglyReverse(t *testing.T) {
 		t.Errorf("reverse is '%s'; expected '%s'", actual, expected)
 	}
 }
+
+func TestSinglyPalindrome(t *testing.T) {
+	list := NewSinglyLinkedList()
+	var err error
+	err = list.InsertToTail("1")
+	if err != nil {
+		t.Errorf("palindrome：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("2")
+	if err != nil {
+		t.Errorf("palindrome：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("2")
+	if err != nil {
+		t.Errorf("palindrome：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("1")
+	if err != nil {
+		t.Errorf("palindrome：%s", err.Error())
+		return
+	}
+	var expected bool = true
+	actual := list.IsPalindrome()
+	if actual == expected {
+		t.Logf(" '%s' 是否回文 ? %v ", list.Print(), actual)
+	} else {
+		t.Errorf(" '%s' 是否回文 ? %v ; expected %v ", list.Print(), actual, expected)
+	}
+}
+
+func TestSinglyRing(t *testing.T) {
+	list := NewSinglyLinkedList()
+	var err error
+	err = list.InsertToTail("1")
+	if err != nil {
+		t.Errorf("ring：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("2")
+	if err != nil {
+		t.Errorf("ring：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("3")
+	if err != nil {
+		t.Errorf("ring：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("4")
+	if err != nil {
+		t.Errorf("ring：%s", err.Error())
+		return
+	}
+	err = list.InsertToTail("5")
+	if err != nil {
+		t.Errorf("ring：%s", err.Error())
+		return
+	}
+	var (
+		in = "4"
+	)
+	current := list.head
+	var length uint = list.length
+	var i uint = 0
+	var node *ListNode
+	for ; i < length; i++ {
+		if current.data == in {
+			node = current
+			break
+		}
+		current = current.next
+	}
+	// 创建环
+	node.next = list.head.next
+	// 更新长度
+	list.length--
+	var expected bool = true
+	actual := list.HasRing()
+	if actual == expected {
+		t.Logf(" ring：%s ", "passed")
+	} else {
+		t.Errorf(" ring：%s ", "failed")
+	}
+}

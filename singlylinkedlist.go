@@ -159,32 +159,6 @@ func (list *SinglyLinkedList) RemoveNode(node *ListNode) error {
 	return nil
 }
 
-// 反转链表
-func (list *SinglyLinkedList) Reverse() {
-	if list.head == nil {
-		return
-	}
-	if list.head.next == nil {
-		return
-	}
-	fmt.Println("--- before reverse ---")
-	fmt.Println(list.PrintAddress())
-	var previous *ListNode
-	var current *ListNode = list.head
-	for current != nil {
-		// 当前节点下一个节点
-		temp := current.next
-		current.next = previous
-		// 更新上一个节点
-		previous = current
-		// 更新当前节点
-		current = temp
-	}
-	list.head = previous
-	fmt.Println("--- after reverse ---")
-	fmt.Println(list.PrintAddress())
-}
-
 // 打印链表
 func (list *SinglyLinkedList) Print() string {
 	if list.head == nil {
@@ -217,4 +191,115 @@ func (list *SinglyLinkedList) PrintAddress() string {
 		}
 	}
 	return address
+}
+
+// 反转链表
+func (list *SinglyLinkedList) Reverse() {
+	if list.head == nil {
+		return
+	}
+	if list.head.next == nil {
+		return
+	}
+	fmt.Println("--- before reverse ---")
+	fmt.Println(list.PrintAddress())
+	var previous *ListNode
+	var current *ListNode = list.head
+	for current != nil {
+		// 当前节点下一个节点
+		temp := current.next
+		current.next = previous
+		// 更新上一个节点
+		previous = current
+		// 更新当前节点
+		current = temp
+	}
+	list.head = previous
+	fmt.Println("--- after reverse ---")
+	fmt.Println(list.PrintAddress())
+}
+
+// 是否回文
+func (list *SinglyLinkedList) IsPalindrome() bool {
+	if list.head == nil {
+		return false
+	}
+	if list.head.next == nil {
+		return false
+	}
+	var isPalindrome bool = false
+	fmt.Println("--- before verify palindrome ---")
+	fmt.Println(list.PrintAddress())
+	// 慢指针
+	slow := list.head
+	// 快指针
+	fast := list.head
+	// 当快指针遍历完链表，慢指针停下的位置就是中心点
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+	}
+	// 反转链表后半部分
+	var previous *ListNode
+	for slow != nil {
+		// 当前节点下一个节点
+		tmp := slow.next
+		slow.next = previous
+		// 更新上一个节点
+		previous = slow
+		// 更新当前节点
+		slow = tmp
+	}
+	// 链表左半部分
+	left := list.head
+	// 链表右半部分
+	right := previous
+	// 待还原链表
+	restore := previous
+	for right != nil {
+		if left.data != right.data {
+			isPalindrome = false
+			goto RestoreLabel
+		}
+		left = left.next
+		right = right.next
+	}
+	isPalindrome = true
+RestoreLabel:
+	// 还原链表
+	var previousNode *ListNode
+	for restore != nil {
+		// 当前节点下一个节点
+		tmp := restore.next
+		restore.next = previousNode
+		// 更新上一个节点
+		previousNode = restore
+		// 更新当前节点
+		restore = tmp
+	}
+	fmt.Println("--- after verify palindrome ---")
+	fmt.Println(list.PrintAddress())
+	return isPalindrome
+}
+
+// 是否有环
+func (list *SinglyLinkedList) HasRing() bool {
+	if list.head == nil {
+		return false
+	}
+	if list.head.next == nil {
+		return false
+	}
+	// 慢指针
+	slow := list.head
+	// 快指针
+	fast := list.head
+	for fast != nil && fast.next != nil {
+		slow = slow.next
+		fast = fast.next.next
+		if slow == fast {
+			return true
+		}
+	}
+	return false
 }
