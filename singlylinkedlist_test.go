@@ -32,7 +32,7 @@ func TestSinglyInsertToHead(t *testing.T) {
 		t.Errorf("insert to head：%s", err.Error())
 		return
 	}
-	t.Logf("before insert to head is '%s' ", list.Print())
+	t.Logf("before insert to head is '%s'", list.Print())
 	err = list.InsertToHead("2")
 	if err != nil {
 		t.Errorf("insert to head： %s", err.Error())
@@ -41,7 +41,7 @@ func TestSinglyInsertToHead(t *testing.T) {
 	var expected string = "2->1"
 	actual := list.Print()
 	if actual == expected {
-		t.Logf("after insert to head is '%s' ", expected)
+		t.Logf("after insert to head is '%s'", expected)
 	} else {
 		t.Errorf("insert to head is '%s'; expected '%s'", actual, expected)
 	}

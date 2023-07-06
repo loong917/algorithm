@@ -167,6 +167,8 @@ func (list *SinglyLinkedList) Reverse() {
 	if list.head.next == nil {
 		return
 	}
+	fmt.Println("--- before reverse ---")
+	fmt.Println(list.PrintAddress())
 	var previous *ListNode
 	var current *ListNode = list.head
 	for current != nil {
@@ -179,6 +181,8 @@ func (list *SinglyLinkedList) Reverse() {
 		current = temp
 	}
 	list.head = previous
+	fmt.Println("--- after reverse ---")
+	fmt.Println(list.PrintAddress())
 }
 
 // 打印链表
@@ -196,4 +200,21 @@ func (list *SinglyLinkedList) Print() string {
 		}
 	}
 	return message
+}
+
+// 打印链表结构
+func (list *SinglyLinkedList) PrintAddress() string {
+	if list.head == nil {
+		return ""
+	}
+	current := list.head
+	var address string
+	for current != nil {
+		address += fmt.Sprintf("%+v", current)
+		current = current.next
+		if current != nil {
+			address += "->"
+		}
+	}
+	return address
 }

@@ -2,7 +2,6 @@ package algorithm
 
 import (
 	"fmt"
-	"log"
 )
 
 // 双向链表
@@ -158,6 +157,29 @@ func (list *DoublyLinkedList) Reverse() {
 	if list.head == nil {
 		return
 	}
+	if list.head.next == nil {
+		return
+	}
+	fmt.Println("--- before reverse ---")
+	fmt.Println(list.PrintAddress())
+	var previous *Node
+	var current *Node = list.head
+	for current != nil {
+		// 当前节点下一个节点
+		temp := current.next
+		current.next = previous
+		current.previous = temp
+		if previous == nil {
+			list.tail = current
+		}
+		// 更新上一个节点
+		previous = current
+		// 更新当前节点
+		current = temp
+	}
+	list.head = previous
+	fmt.Println("--- after reverse ---")
+	fmt.Println(list.PrintAddress())
 }
 
 // 打印链表
@@ -167,18 +189,29 @@ func (list *DoublyLinkedList) Print() string {
 	}
 	current := list.head
 	var message string
-	var address string
 	for current != nil {
 		message += fmt.Sprintf("%+v", current.data)
-		address += fmt.Sprintf("%+v", current)
 		current = current.next
 		if current != nil {
 			message += "->"
+		}
+	}
+	return message
+}
+
+// 打印链表结构
+func (list *DoublyLinkedList) PrintAddress() string {
+	if list.head == nil {
+		return ""
+	}
+	current := list.head
+	var address string
+	for current != nil {
+		address += fmt.Sprintf("%+v", current)
+		current = current.next
+		if current != nil {
 			address += "->"
 		}
 	}
-	log.Println("--- begin ---")
-	log.Println(address)
-	log.Println("--- end ---")
-	return message
+	return address
 }
