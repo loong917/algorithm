@@ -303,3 +303,4 @@ func (list *SinglyLinkedList) HasRing() bool {
 	}
 	return false
 }
+

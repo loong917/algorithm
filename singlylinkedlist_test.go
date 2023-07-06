@@ -397,3 +397,4 @@ func TestSinglyRing(t *testing.T) {
 		t.Errorf(" ring：%s ", "failed")
 	}
 }
+
