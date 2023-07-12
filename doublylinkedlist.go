@@ -57,6 +57,36 @@ func (list *DoublyLinkedList) RemoveHead() error {
 	return nil
 }
 
+// 新增尾节点
+func (list *DoublyLinkedList) InsertToTail(v interface{}) error {
+	if list.head == nil {
+		return list.InsertToHead(v)
+	}
+	tail := list.tail
+	newNode := &Node{
+		data:     v,
+		previous: tail,
+	}
+	tail.next = newNode
+	list.tail = newNode
+	list.length++
+	return nil
+}
+
+// 删除尾节点
+func (list *DoublyLinkedList) RemoveTail() error {
+	if list.head == nil {
+		return ErrRemoveFromEmptyList
+	}
+	tail := list.tail
+	// 新的尾节点
+	current := tail.previous
+	current.next = nil
+	list.tail = current
+	list.length--
+	return nil
+}
+
 // 在某个节点后面插入节点
 func (list *DoublyLinkedList) InsertAfter(node *Node, v interface{}) error {
 	if node == nil {
@@ -101,36 +131,6 @@ func (list *DoublyLinkedList) InsertBefore(node *Node, v interface{}) error {
 	// 当前节点的previous
 	node.previous = newNode
 	list.length++
-	return nil
-}
-
-// 新增尾节点
-func (list *DoublyLinkedList) InsertToTail(v interface{}) error {
-	if list.head == nil {
-		return list.InsertToHead(v)
-	}
-	tail := list.tail
-	newNode := &Node{
-		data:     v,
-		previous: tail,
-	}
-	tail.next = newNode
-	list.tail = newNode
-	list.length++
-	return nil
-}
-
-// 删除尾节点
-func (list *DoublyLinkedList) RemoveTail() error {
-	if list.head == nil {
-		return ErrRemoveFromEmptyList
-	}
-	tail := list.tail
-	// 新的尾节点
-	current := tail.previous
-	current.next = nil
-	list.tail = current
-	list.length--
 	return nil
 }
 
