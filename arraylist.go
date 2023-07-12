@@ -71,6 +71,15 @@ func (list *ArrayList) IndexOf(value interface{}) int {
 	return -1
 }
 
+// second return parameter is true if index is within bounds of the array and array is not empty,
+// otherwise false.
+func (list *ArrayList) Get(index int) (interface{}, bool) {
+	if index < 0 || index >= list.length {
+		return nil, false
+	}
+	return list.data[index], true
+}
+
 // 清空
 func (list *ArrayList) Clear() {
 	list.length = 0
