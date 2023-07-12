@@ -60,10 +60,10 @@ func (obj *LinkedListStack) Pop() (interface{}, bool) {
 
 // 打印栈
 func (obj *LinkedListStack) Print() string {
-	if obj.top == nil {
+	if obj.bottom == nil {
 		return ""
 	}
-	current := obj.top
+	current := obj.bottom
 	var message string
 	for current != nil {
 		message += fmt.Sprintf("%+v", current.data)
