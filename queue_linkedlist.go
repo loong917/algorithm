@@ -21,7 +21,7 @@ func NewLinkedListQueue() *LinkedListQueue {
 }
 
 // 入队
-func (obj *LinkedListQueue) Enqueue(v interface{}) {
+func (obj *LinkedListQueue) Enqueue(v interface{}) bool {
 	newNode := &QueueNode{
 		data: v,
 		next: nil,
@@ -30,14 +30,16 @@ func (obj *LinkedListQueue) Enqueue(v interface{}) {
 	if obj.tail == nil {
 		obj.head = newNode
 		obj.tail = newNode
-		return
+		return true
 	}
 	obj.tail.next = newNode
 	obj.tail = newNode
+	return true
 }
 
 // 出队
 func (obj *LinkedListQueue) Dequeue() (interface{}, bool) {
+	// 队列为空
 	if obj.head == nil {
 		return nil, false
 	}

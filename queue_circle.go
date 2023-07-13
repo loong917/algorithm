@@ -84,5 +84,4 @@ func (obj *CircleQueue) Print() string {
 	}
 	var message string = strings.Join(values, "->")
 	return message
-
 }
