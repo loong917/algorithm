@@ -32,6 +32,7 @@ func (obj *LinkedListQueue) Enqueue(v interface{}) bool {
 		obj.tail = newNode
 		return true
 	}
+	// 非空队列
 	obj.tail.next = newNode
 	obj.tail = newNode
 	return true
