@@ -72,6 +72,7 @@ func (obj *CircleQueue) Print() string {
 	if obj.head == obj.tail {
 		return ""
 	}
+	// 获取队列长度
 	length := obj.Size()
 	slices := make([]interface{}, length, length)
 	for i := 0; i < obj.Size(); i++ {
