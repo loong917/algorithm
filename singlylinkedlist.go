@@ -155,6 +155,9 @@ func (list *SinglyLinkedList) RemoveNode(node *ListNode) error {
 		return ErrNodeNotExist
 	}
 	previous.next = node.next
+	// avoid memory leaks
+	node.next = nil
+	node.data = nil
 	list.length--
 	return nil
 }
@@ -303,4 +306,3 @@ func (list *SinglyLinkedList) HasRing() bool {
 	}
 	return false
 }
-
