@@ -148,6 +148,10 @@ func (list *DoublyLinkedList) RemoveNode(node *Node) error {
 	// 后一节点的previous
 	next := node.next
 	next.previous = current
+	// avoid memory leaks
+	node.next = nil
+	node.previous = nil
+	node.data = nil
 	list.length--
 	return nil
 }
