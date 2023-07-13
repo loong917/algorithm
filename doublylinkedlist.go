@@ -189,33 +189,3 @@ func (list *DoublyLinkedList) PrintAddress() string {
 	}
 	return address
 }
-
-// 反转链表
-func (list *DoublyLinkedList) Reverse() {
-	if list.head == nil {
-		return
-	}
-	if list.head.next == nil {
-		return
-	}
-	fmt.Println("--- before reverse ---")
-	fmt.Println(list.PrintAddress())
-	var previous *Node
-	var current *Node = list.head
-	for current != nil {
-		// 当前节点下一个节点
-		temp := current.next
-		current.next = previous
-		current.previous = temp
-		if previous == nil {
-			list.tail = current
-		}
-		// 更新上一个节点
-		previous = current
-		// 更新当前节点
-		current = temp
-	}
-	list.head = previous
-	fmt.Println("--- after reverse ---")
-	fmt.Println(list.PrintAddress())
-}
