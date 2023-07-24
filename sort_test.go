@@ -84,3 +84,21 @@ func TestQuickSort(t *testing.T) {
 		t.Errorf("%v 快速排序 %v; expected %v", in, input, expected)
 	}
 }
+
+func TestBucketSort(t *testing.T) {
+	var (
+		in       = []int{6, 11, 13, 9, 8, 1, 4, 7, 15, 2, 12, 10, 5, 14, 3}
+		expected = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
+	)
+	input := make([]int, len(in))
+	// 切片拷贝
+	copy(input, in)
+	// 桶大小
+	var bucketSize int = 4
+	BucketSort(input, bucketSize)
+	if reflect.DeepEqual(input, expected) {
+		t.Logf("%v 桶排序 %v", in, expected)
+	} else {
+		t.Errorf("%v 桶排序 %v; expected %v", in, input, expected)
+	}
+}

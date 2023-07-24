@@ -148,3 +148,39 @@ func quickPartition(array []int, start int, end int) int {
 	log.Printf("after array：%v，start：%d，end：%d，pivot：%d，index：%d", array, start, end, pivot, pivotIndex)
 	return pivotIndex
 }
+
+// 6、桶排序
+func BucketSort(array []int, bucketSize int) {
+	// 获取最大元素值
+	var length int = len(array)
+	if length <= 1 {
+		return
+	}
+	var min int = array[0]
+	var max int = array[0]
+	for i := 1; i < length; i++ {
+		if array[i] > max {
+			max = array[i]
+		}
+		if array[i] < min {
+			min = array[i]
+		}
+	}
+	// 二维切片
+	buckets := make([][]int, length/bucketSize+1)
+	for _, n := range array {
+		idx := (n - min) / bucketSize
+		buckets[idx] = append(buckets[idx], n)
+	}
+	// 索引
+	position := 0
+	for index, bucket := range buckets {
+		bucketLength := len(bucket)
+		if bucketLength > 0 {
+			// 桶内排序：快排
+			QuickSort(bucket)
+			copy(array[position:], buckets[index])
+			position += bucketLength
+		}
+	}
+}
