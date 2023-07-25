@@ -189,6 +189,8 @@ func BucketSort(array []int, bucketSize int) {
 }
 
 // 7、计数排序
+// 计数排序只能用在数据范围不大的场景中（比如高考成绩），如果数据范围 k 比要排序的数据 n 大很多，就不适合用计数排序了。
+// 计数排序只能给非负整数排序，如果要排序的数据是其他类型的，要将其在不改变相对大小的情况下，转化为非负整数。
 func CountingSort(array []int) []int {
 	// 获取最大元素值
 	var length int = len(array)
