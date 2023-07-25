@@ -102,3 +102,19 @@ func TestBucketSort(t *testing.T) {
 		t.Errorf("%v 桶排序 %v; expected %v", in, input, expected)
 	}
 }
+
+func TestCountingSort(t *testing.T) {
+	var (
+		in       = []int{2, 5, 3, 0, 2, 3, 0, 3}
+		expected = []int{0, 0, 2, 2, 3, 3, 3, 5}
+	)
+	input := make([]int, len(in))
+	// 切片拷贝
+	copy(input, in)
+	actual := CountingSort(input)
+	if reflect.DeepEqual(actual, expected) {
+		t.Logf("%v 计数排序 %v", in, expected)
+	} else {
+		t.Errorf("%v 计数排序 %v; expected %v", in, input, expected)
+	}
+}

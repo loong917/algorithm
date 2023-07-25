@@ -150,6 +150,9 @@ func quickPartition(array []int, start int, end int) int {
 }
 
 // 6、桶排序
+// 桶排序对待排序的数据要求非常苛刻。
+// 首先，要排序的数据需要很容易就能划分成 m 个桶，并且，桶与桶之间有着天然的大小顺序。这样每个桶内的数据都排序完之后，桶与桶之间的数据不需要再进行排序。
+// 其次，数据在各个桶之间的分布是比较均匀的。
 func BucketSort(array []int, bucketSize int) {
 	// 获取最大元素值
 	var length int = len(array)
@@ -183,4 +186,38 @@ func BucketSort(array []int, bucketSize int) {
 			position += bucketLength
 		}
 	}
+}
+
+// 7、计数排序
+func CountingSort(array []int) []int {
+	// 获取最大元素值
+	var length int = len(array)
+	if length <= 1 {
+		return array
+	}
+	var max int = array[0]
+	for i := 1; i < length; i++ {
+		if array[i] > max {
+			max = array[i]
+		}
+	}
+	// 申请一个计数数组，下标大小[0,max]
+	countArray := make([]int, max+1)
+	// 计算每个元素的个数
+	for i := 0; i < length; i++ {
+		countArray[array[i]] += 1
+	}
+	// 依次累加
+	for i := 1; i <= max; i++ {
+		countArray[i] += countArray[i-1]
+	}
+	log.Println("计数数组：", countArray)
+	// 从后到前一次扫描数据
+	resultArray := make([]int, length)
+	for i := length - 1; i >= 0; i-- {
+		index := countArray[array[i]]
+		resultArray[index-1] = array[i]
+		countArray[array[i]] -= 1
+	}
+	return resultArray
 }
