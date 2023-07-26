@@ -118,3 +118,19 @@ func TestCountingSort(t *testing.T) {
 		t.Errorf("%v 计数排序 %v; expected %v", in, input, expected)
 	}
 }
+
+func TestRadixSort(t *testing.T) {
+	var (
+		in       = []int{31, 27, 28, 42, 13, 8}
+		expected = []int{8, 13, 27, 28, 31, 42}
+	)
+	input := make([]int, len(in))
+	// 切片拷贝
+	copy(input, in)
+	RadixSort(input)
+	if reflect.DeepEqual(input, expected) {
+		t.Logf("%v 基数排序 %v", in, expected)
+	} else {
+		t.Errorf("%v 基数排序 %v; expected %v", in, input, expected)
+	}
+}

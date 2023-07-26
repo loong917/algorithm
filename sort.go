@@ -223,3 +223,61 @@ func CountingSort(array []int) []int {
 	}
 	return resultArray
 }
+
+// 8、基数排序
+// 基数排序对要排序的数据是有要求的，需要可以分割出独立的“位”来比较，而且位之间有递进的关系，如果 a 数据的高位比 b 数据大，那剩下的低位就不用比较了。
+// 除此之外，每一位的数据范围不能太大，要可以用线性排序算法来排序，否则，基数排序的时间复杂度就无法做到 O(n) 了。
+func RadixSort(array []int) {
+	var length int = len(array)
+	if length <= 1 {
+		return
+	}
+	// 获取最大元素值
+	var max int = array[0]
+	for i := 1; i < length; i++ {
+		if array[i] > max {
+			max = array[i]
+		}
+	}
+	for place := 1; max/place > 0; place *= 10 {
+		radixPartition(array, place)
+	}
+}
+
+// 对每个位数上的数字进行计数排序
+func radixPartition(array []int, exp int) {
+	var length int = len(array)
+	if length <= 1 {
+		return
+	}
+	// 申请一个计数数组
+	countArray := make([]int, 10)
+	// 计算每个元素的个数
+	for _, val := range array {
+		category := (val / exp) % 10
+		countArray[category] += 1
+	}
+	// 依次累加
+	for i := 1; i < 10; i++ {
+		countArray[i] += countArray[i-1]
+	}
+
+	log.Printf(" %d 位计数数组：%v", exp, countArray)
+
+	// 从后到前一次扫描数据
+	resultArray := make([]int, length)
+	for i := length - 1; i >= 0; i-- {
+		divisor := (array[i] / exp) % 10
+		index := countArray[divisor] - 1
+		resultArray[index] = array[i]
+		countArray[divisor] -= 1
+
+		log.Printf("第 %d 轮排序：%v", i, resultArray)
+	}
+
+	log.Printf(" %d 位排序结果：%v", exp, resultArray)
+
+	for i := 0; i < length; i++ {
+		array[i] = resultArray[i]
+	}
+}
