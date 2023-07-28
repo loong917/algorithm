@@ -244,7 +244,7 @@ func RadixSort(array []int) {
 	}
 }
 
-// 对每个位数上的数字进行计数排序
+// 对每个数位上的数字进行计数排序
 func radixPartition(array []int, exp int) {
 	var length int = len(array)
 	if length <= 1 {
